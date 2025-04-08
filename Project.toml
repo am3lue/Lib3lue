@@ -1,0 +1,24 @@
+name = "Library"
+uuid = "57acdbb3-2e81-4454-9040-4d5673cbd7f1"
+authors = ["am3lue <am3lue@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
+GenieSession = "03cc5b98-4f21-4eb6-99f2-22eced81f962"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+Inflector = "6d011eab-0732-4556-8808-e463c76bf3b6"
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+PDFIO = "4d0d745f-9d9a-592e-8d18-1ad8a0f42b92"
+Sockets = "6462fe0b-24de-5631-8697-dd941f90decc"
+
+[compat]
+Dates = "1.11.0"
+Genie = "5.33.6"
+GenieSession = "1.1.2"
+HTTP = "1.10.15"
+Inflector = "1.1.0"
+Logging = "1.11.0"
+PDFIO = "0.1.15"
+Sockets = "1.11.0"
