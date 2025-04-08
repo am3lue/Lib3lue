@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                window.location.href = '/';
+            } else {
+                alert(data.error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form onsubmit="handleSubmit(event)">
+            <table border="1">
+                <tr>
+                    <th>Email: </th>
+                    <td><input type="email" name="email" id="email" required></td>
+                </tr>
+                <tr>
+                    <th>Password: </th>
+                    <td><input type="password" name="password" id="password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;"><input type="submit" value="Login"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
