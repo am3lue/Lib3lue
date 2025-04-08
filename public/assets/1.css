@@ -1,0 +1,199 @@
+body {
+    background-color: rgb(16, 42, 88);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    animation: color 4s ease-in-out infinite;
+}
+@keyframes color {
+    0%{ 
+        background-color: rgb(16, 42, 88);
+        opacity: 1;
+    }
+    50% {
+        background-color: rgb(18, 61, 136);
+        opacity: 0.7;
+    }
+    100% {
+        background-color: rgb(16, 42, 88);
+        opacity: 1;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+nav.nav {
+    width: 100%;
+    height: 3rem;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow-x: auto;
+    transition: opacity 0.3s ease;
+    opacity: 0.8;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-bar h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+    padding-right: 2rem;
+}
+
+.nav-bar a {
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+    padding: 0.75rem 1rem;
+    margin: 0 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(196, 228, 255, 0.589);
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.nav-bar a:hover {
+    background-color: rgba(165, 193, 216, 0.589);
+}
+
+.content {
+    margin-top: 5rem;
+    padding: 2rem;
+    flex: 1;
+    transition: opacity 0.3s ease;
+}
+header.head1 {
+    text-align: center;
+    padding: 2rem 0;
+    transition: opacity 0.3s ease;
+}
+
+
+.head1 h1, .head1 h2 {
+    margin: 0;
+    color: #fff;
+    transition: opacity 0.3s ease;
+}
+
+
+.head1 h1 span {
+    display: inline-block;
+    font-size: 50px;
+    transition: transform 0.3s ease, font-size 0.3s ease, opacity 0.3s ease;
+}
+
+.head1 h1 span:hover {
+    transform: scale(1.5);
+    font-size: 75px;
+    
+}
+
+.body1-1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    flex-direction: row;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+
+button {
+    width: auto;
+    height: auto;
+    padding: 100px;
+    margin: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    background-color: rgba(196, 228, 255, 0.589);
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s, opacity 0.3s;
+    color: transparent;
+}
+
+button:hover,#music:hover,#movies:hover,#docs:hover,#shorts:hover,#books:hover,#rest:hover {
+    background-color: rgba(196, 228, 255, 0.589);
+    background-image: none;
+    color: rgba(7, 61, 105, 0.788);
+    font-weight: bold;
+    font-size: 1.5em;
+    border-color: rgba(196, 228, 255, 0.589);
+    transition: font-size 0.3s ease;
+}
+#music {
+    background-image: url("img/Music.gif");
+}
+
+#movies {
+    background-image: url("img/2.gif");
+}
+
+#docs {
+    background-image: url("img/1.gif");
+}
+
+#shorts {
+    background-image: url("img/6.gif");
+}
+
+#books {
+    background-image: url("img/3.gif");
+}
+
+#rest {
+    background-image: url("img/5.gif");
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+    transition: opacity 0.3s ease;
+}
+
+
+
+footer h2 {
+    margin: 0;
+    color: #fff;
+    transition: opacity 0.3s ease;
+}
+
+
+footer h2 span {
+    display: inline-block;
+    font-size: 3px;
+    transition: transform 0.3s ease, font-size 0.3s ease, opacity 0.3s ease;
+}
+
+footer h2 span:hover {
+    transform: scale(1.5);
+    font-size: 3px;
+    
+}
