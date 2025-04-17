@@ -3,28 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to 3lue</title>
-    <link rel="stylesheet" href="entry-pages/style.css">
-    <link rel="shortcut icon" href="../assets/img/icon.jpeg" type="image/x-icon">
+    <title>3lue Library - Digital Knowledge Hub</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="head1">
-        <h1>Welcome to 3lue</h1>
-        <h2>Your Gateway to Digital Exploration</h2>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-book-reader"></i>
+                <span>3lue Library</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Welcome to 3lue Library</h1>
+            <h2>Your Digital Gateway to Infinite Knowledge</h2>
+            <div class="hero-buttons">
+                <a href="entry-pages/index.html" class="btn btn-primary">
+                    <i class="fas fa-door-open"></i> Enter Library
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+            </div>
+        </div>
     </div>
 
-    <fieldset>
-        <form>
-            <h2>Sign In</h2>
-            <label>Start your journey with us</label>
-            <button type="button">
-                <a href="entry-pages/index.html">Login Now</a>
-            </button>
-        </form>
-    </fieldset>
+    <section id="features" class="features">
+        <h2>Why Choose 3lue Library?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-book"></i>
+                <h3>Vast Collection</h3>
+                <p>Access thousands of digital books, documents, and resources.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-laptop"></i>
+                <h3>Digital Access</h3>
+                <p>Read anywhere, anytime with our digital platform.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-search"></i>
+                <h3>Easy Search</h3>
+                <p>Find what you need with our powerful search system.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>24/7 Available</h3>
+                <p>Access your favorite books round the clock.</p>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>© 2025 3lue - All Rights Reserved</p>
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About 3lue Library</h2>
+                <p>3lue Library is a state-of-the-art digital library platform designed to make knowledge accessible to everyone. Our mission is to create a seamless bridge between readers and digital resources.</p>
+                <ul class="about-features">
+                    <li><i class="fas fa-check"></i> Modern Digital Interface</li>
+                    <li><i class="fas fa-check"></i> Extensive Digital Collection</li>
+                    <li><i class="fas fa-check"></i> User-Friendly Experience</li>
+                    <li><i class="fas fa-check"></i> Secure Access System</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>contact@3luelibrary.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-location-dot"></i>
+                    <p>123 Library Street, Digital City</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>3lue Library</h3>
+                <p>Your Digital Gateway to Knowledge</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/shutdown">System Shutdown</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </div>
     </footer>
 </body>
 </html>

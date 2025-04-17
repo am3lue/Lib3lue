@@ -3,44 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <script>
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const response = await fetch('/login', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                window.location.href = '/';
-            } else {
-                alert(data.error);
-            }
-        }
-    </script>
+    <title>Login - 3lue Library</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div>
-        <form onsubmit="handleSubmit(event)">
-            <table border="1">
-                <tr>
-                    <th>Email: </th>
-                    <td><input type="email" name="email" id="email" required></td>
-                </tr>
-                <tr>
-                    <th>Password: </th>
-                    <td><input type="password" name="password" id="password" required></td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center;"><input type="submit" value="Login"></td>
-                </tr>
-            </table>
-        </form>
+    <div class="container">
+        <header class="header">
+            <h1>Welcome Back</h1>
+            <h2>Access Your Digital Library</h2>
+        </header>
+
+        <div class="card">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit">Login</button>
+                <button type="button">
+                    <a href="signup.html">Create New Account</a>
+                </button>
+                <button type="button">
+                    <a href="../index.html">Back to Home</a>
+                </button>
+            </form>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>

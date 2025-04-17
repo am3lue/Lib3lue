@@ -3,68 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies in 3lue</title>
-    <link rel="stylesheet" href="../main.css">
-    <link rel="stylesheet" href="../2.css">
-    <link rel="shortcut icon" href="../img/icon.jpeg" type="image/x-icon">
-
+    <title>Movies - 3lue Library</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="nav">
-        <center>
-        <div class="nav-bar">
-            <h1>
-                <a href="../../index.html">Home</a>
-                <a href="docs.html">Docs</a>
-                <a href="books.html">Books</a>
-                <a href="faq.html">F.A.Q</a>
-            </h1>
-        </div>
-    </center>
-    </div>
+    <div class="container">
+        <nav class="nav-links">
+            <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="/books" class="nav-link"><i class="fas fa-book"></i> Books</a>
+            <a href="/docs" class="nav-link"><i class="fas fa-file-alt"></i> Docs</a>
+            <a href="/music" class="nav-link"><i class="fas fa-music"></i> Music</a>
+            <a href="/movies" class="nav-link active"><i class="fas fa-film"></i> Movies</a>
+            <a href="/faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+        </nav>
 
-    <div class="head1">
-        <div class="main-head1">
-            <h1>Welcome In Movies section</h1>
-            <h2>Folk !</h2>
-        </div>
-    </div>
+        <header class="header">
+            <h1>Movie Collection</h1>
+            <h2>Explore Our Video Library</h2>
+        </header>
 
-
-    <div class="srch">
-        <div class="srch-bar">
-            <center>
-            <form action="" method="get">
-                <label for="Search">Search: </label>
-                <input type="text" name="Search" id="srch" placeholder="Search">
-                <button type="submit">Search</button>
-            </form>
-        </center>
-        </div>
-        <center>
-            <div class="container">
-                <fieldset>
-                    <br><br>
-                    <a href="../../Movies/A Family Affair (2024) [1080p] [WEBRip] [x265] [10bit] [5.1] [YTS.MX].zip" download="Family Affair">Family Affair</a>
-                    <br><br><br>
-                    <a href="../../Movies/Back To Black (2024) [1080p] [WEBRip] [x265] [10bit] [5.1] [YTS.MX].zip" download="Back To black">Back To Black</a>\
-                    <br><br><br>
-                    <a href="../../Movies/Beverly Hills Cop Axel F (2024) [1080p] [WEBRip] [x265] [10bit] [5.1] [YTS.MX].zip" download="Beverly Hills Cop Axel F">Beverly Hills Cop Axel F</a>
-                    <br><br><br>
-                    <a href="../../Movies/Descendants The Rise Of Red (2024) [1080p] [WEBRip] [x265] [10bit] [5.1] [YTS.MX].zip" download="Descendants The Rise Of Red">Descendants The Rise Of Red</a>
-                    <br><br><br>
-                    
-                    <br><br><br>
-                </fieldset>
+        <div class="card">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="movieSearch" placeholder="Search movies..." class="search-input">
+                    <div id="searchSuggestions" class="search-suggestions"></div>
+                </div>
+                <button class="search-button" onclick="searchMovies()">Search</button>
             </div>
-        </center>
+        </div>
+
+        <div class="card">
+            <div class="filter-container">
+                <select id="formatFilter" class="filter-select">
+                    <option value="all">All Formats</option>
+                    <option value="mp4">MP4</option>
+                    <option value="mkv">MKV</option>
+                    <option value="avi">AVI</option>
+                    <option value="mov">MOV</option>
+                    <option value="wmv">WMV</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="content-grid" id="moviesGrid">
+                <!-- Movie items will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Featured Collections</h3>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <h4>Latest Releases</h4>
+                    <p>Newest additions to our library</p>
+                </div>
+                <div class="collection-card">
+                    <h4>Popular Movies</h4>
+                    <p>Most watched films</p>
+                </div>
+                <div class="collection-card">
+                    <h4>Curated Lists</h4>
+                    <p>Handpicked selections</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
     </div>
 
-    
-    </body>
-    
-    <footer>
-        <h2>All Rights Are Reserverd</h2>
-    </footer>
+    <script>
+        // Function to fetch movies from the server
+        async function fetchMovies() {
+            try {
+                const response = await fetch('/api/movies/search');
+                const movies = await response.json();
+                return movies;
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+                return [];
+            }
+        }
 
-    </html>
+        // Function to get file extension
+        function getFileExtension(filename) {
+            return filename.split('.').pop().toLowerCase();
+        }
+
+        // Function to get file icon based on extension
+        function getFileIcon(extension) {
+            const icons = {
+                'mp4': '🎬',
+                'mkv': '🎬',
+                'avi': '🎬',
+                'mov': '🎬',
+                'wmv': '🎬'
+            };
+            return icons[extension] || '🎬';
+        }
+
+        // Function to show search suggestions
+        async function showSuggestions(searchTerm) {
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            if (!searchTerm) {
+                suggestionsDiv.innerHTML = '';
+                suggestionsDiv.classList.remove('show');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/movies/search?q=${encodeURIComponent(searchTerm)}`);
+                const movies = await response.json();
+                
+                if (movies.length > 0) {
+                    suggestionsDiv.innerHTML = movies
+                        .map(movie => `
+                            <div class="suggestion-item" onclick="selectSuggestion('${movie}')">
+                                <span class="suggestion-icon">${getFileIcon(getFileExtension(movie))}</span>
+                                <span class="suggestion-text">${movie}</span>
+                            </div>
+                        `).join('');
+                    suggestionsDiv.classList.add('show');
+                } else {
+                    suggestionsDiv.innerHTML = '<div class="suggestion-item">No matches found</div>';
+                    suggestionsDiv.classList.add('show');
+                }
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+                suggestionsDiv.classList.remove('show');
+            }
+        }
+
+        // Function to select a suggestion
+        function selectSuggestion(movie) {
+            document.getElementById('movieSearch').value = movie;
+            document.getElementById('searchSuggestions').classList.remove('show');
+            searchMovies();
+        }
+
+        // Function to display movies
+        function displayMovies(movies) {
+            const moviesGrid = document.getElementById('moviesGrid');
+            moviesGrid.innerHTML = '';
+
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.className = 'book-card';
+                
+                const fileExt = getFileExtension(movie);
+                const icon = getFileIcon(fileExt);
+                const format = fileExt.toUpperCase();
+                
+                movieCard.innerHTML = `
+                    <div class="book-icon">${icon}</div>
+                    <h3>${movie}</h3>
+                    <p class="book-description">${format} format</p>
+                    <div class="book-meta">
+                        <span class="book-format">${format}</span>
+                    </div>
+                    <button class="content-button" onclick="accessMovie('${movie}')">
+                        Watch Now
+                    </button>
+                `;
+                moviesGrid.appendChild(movieCard);
+            });
+        }
+
+        // Function to search movies
+        async function searchMovies() {
+            const searchTerm = document.getElementById('movieSearch').value;
+            const format = document.getElementById('formatFilter').value;
+
+            try {
+                const response = await fetch(`/api/movies/search?q=${encodeURIComponent(searchTerm)}`);
+                const movies = await response.json();
+                
+                // Apply client-side filtering for format
+                const filteredMovies = movies.filter(movie => {
+                    const fileExt = getFileExtension(movie);
+                    return format === 'all' || fileExt === format.toLowerCase();
+                });
+                
+                displayMovies(filteredMovies);
+            } catch (error) {
+                console.error('Error searching movies:', error);
+            }
+        }
+
+        // Function to access a movie file
+        function accessMovie(filename) {
+            window.open(`/Movies/${encodeURIComponent(filename)}`, '_blank');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const movies = await fetchMovies();
+            displayMovies(movies);
+            
+            // Add event listeners
+            document.getElementById('formatFilter').addEventListener('change', searchMovies);
+            
+            // Add input event listener for search suggestions
+            const searchInput = document.getElementById('movieSearch');
+            searchInput.addEventListener('input', (e) => {
+                showSuggestions(e.target.value);
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-wrapper')) {
+                    document.getElementById('searchSuggestions').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

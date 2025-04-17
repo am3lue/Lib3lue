@@ -1,56 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3lue: Local Hosted</title>
-    <link rel="stylesheet" href="../assets/1.css" />
-    <link rel="shortcut icon" href="../assets/img/icon.jpeg" type="image/x-icon" />
-    <script src="main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3lue Library</title>
+    <link rel="stylesheet" href="../css/entry.css">
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <nav class="nav">
-            <div class="nav-bar">
-                <h1>
-                    <a href="index.html">Home</a>
-                    <a href="../assets/others/docs.html">Docs</a>
-                    <a href="../assets/others/books.html">Books</a>
-                    <a href="../assets/others/faq.html">F.A.Q</a>
-                </h1>
-            </div>
-        </nav>
+        <header class="header">
+            <h1>3lue Library</h1>
+            <h2>Your Gateway to Knowledge and Entertainment</h2>
+        </header>
 
-        <div class="content">
-            <header class="head1">
-                <div class="main-head1">
-                    <h1><span>W</span><span>e</span><span>l</span><span>c</span><span>o</span><span>m</span><span>e</span> <span>t</span><span>o</span> <span>3</span><span>l</span><span>u</span><span>e</span></h1>
-                    <h2>Folk!</h2>
-                </div>
-                <div class="body-head1">
-                    <h2>Please Choose What You Like!</h2>
-                </div>
-            </header>
-
-            <section class="body1">
-                <div class="body1-1">
-                    <button id="docs" onclick="docs()">Docs</button>
-                    <button id="books" onclick="books()">Books</button>
-                    <button id="music" onclick="music()">Music</button>
-                    <button id="shorts" onclick="shorts()">Shorts</button>
-                    <button id="rest" onclick="others()">The Rest</button>
-                    <button id="movies" onclick="movies()">Movies</button>
-                </div>
-                <div class="nav-bar">
-                    <p style="color: aliceblue;">For More Exams please visit <a href="https://wazaelimu.com/form-six-monthly-midterm-terminal-and-annual-exams-all-subjects/">HERE</a></p>
-                </div>
-            </section>
+        <div class="card nav-card">
+            <nav class="nav-links">
+                <a href="../assets/others/books.html" class="nav-link">
+                    <span class="nav-icon">📚</span>
+                    <span>Books</span>
+                </a>
+                <a href="../assets/others/music.html" class="nav-link">
+                    <span class="nav-icon">🎵</span>
+                    <span>Music</span>
+                </a>
+                <a href="../assets/others/movies.html" class="nav-link">
+                    <span class="nav-icon">🎬</span>
+                    <span>Movies</span>
+                </a>
+                <a href="../assets/others/docs.html" class="nav-link">
+                    <span class="nav-icon">📄</span>
+                    <span>Documents</span>
+                </a>
+                <a href="../assets/others/upload.html" class="nav-link">
+                    <span class="nav-icon">⬆️</span>
+                    <span>Upload</span>
+                </a>
+            </nav>
         </div>
 
-        <footer>
-            <h2 id="h2a">All Rights Reserved</h2>
+        <div class="content-grid">
+            <div class="card feature-card">
+                <span class="content-icon">📖</span>
+                <h3>Featured Books</h3>
+                <p>Discover our latest collection of books across various genres.</p>
+            </div>
+            <div class="card feature-card">
+                <span class="content-icon">🎼</span>
+                <h3>Music Library</h3>
+                <p>Explore our curated selection of music and audio content.</p>
+            </div>
+            <div class="card feature-card">
+                <span class="content-icon">🎬</span>
+                <h3>Movie Collection</h3>
+                <p>Watch the latest movies and video content in our library.</p>
+            </div>
+            <div class="card feature-card">
+                <span class="content-icon">📑</span>
+                <h3>Document Hub</h3>
+                <p>Access important documents and resources in one place.</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 3lue Library. All rights reserved.</p>
         </footer>
     </div>
-
 </body>
 </html>

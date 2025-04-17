@@ -3,77 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F.A.Q in 3lue</title>
-    <link rel="stylesheet" href="../main.css">
-    <link rel="stylesheet" href="../2.css">
-    <link rel="shortcut icon" href="../img/icon.jpeg" type="image/x-icon">
+    <title>FAQ - 3lue Library</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-bar">
-            <h1>
-                <a href="/">Home</a>
-                <a href="/docs">Docs</a>
-                <a href="/books">Books</a>
-                <a href="/faq">F.A.Q</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/login">Login</a>
-            </h1>
-        </div>
-    </nav>
-
     <div class="container">
-        <div class="content">
-            <div class="welcome-message">
-                <h1>Frequently Asked Questions</h1>
-                <h2>Welcome to our FAQ Section!</h2>
-                <img src="https://www.shutterstock.com/image-vector/faq-banner-frequently-asked-questions-260nw-2227640355.jpg" alt="FAQ Banner" style="max-width: 100%; height: auto; margin: 20px 0;">
+        <header class="header">
+            <h1>Frequently Asked Questions</h1>
+            <h2>Find Answers to Common Questions</h2>
+        </header>
+
+        <nav class="card">
+            <div class="nav-links">
+                <a href="../../entry-pages/index.html" class="nav-link">Home</a>
+                <a href="docs.html" class="nav-link">Documentation</a>
+                <a href="books.html" class="nav-link">Books</a>
             </div>
-            
-            <fieldset>
-                <legend>FAQ Status</legend>
-                <div class="file-container">
-                    <h2>Common Questions</h2>
-                    
-                    <div class="faq-item">
-                        <h3>Q: How do I create an account?</h3>
-                        <p>A: Click on the 'Login' button and select 'Sign Up' to create your new account.</p>
+        </nav>
+
+        <div class="card">
+            <div class="search-container">
+                <input type="text" id="faqSearch" placeholder="Search FAQs..." class="search-input">
+                <button class="search-button">Search</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="faq-categories">
+                <button class="category-button active" data-category="all">All Questions</button>
+                <button class="category-button" data-category="general">General</button>
+                <button class="category-button" data-category="technical">Technical</button>
+                <button class="category-button" data-category="account">Account</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="faq-list">
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>What is 3lue Library?</h3>
+                        <span class="faq-icon">+</span>
                     </div>
-
-                    <div class="faq-item">
-                        <h3>Q: How can I access the books?</h3>
-                        <p>A: Navigate to the 'Books' section and browse our collection. You need to be logged in to download books.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>Q: Is the service free?</h3>
-                        <p>A: Yes, basic access is completely free. Premium features may require a subscription.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>Q: How can I contact support?</h3>
-                        <p>A: You can reach us through the 'Contact' page or email us at support@3lue.com</p>
-                    </div>
-
-                    <img src="https://www.shutterstock.com/image-vector/customer-service-concept-illustration-flat-260nw-1718895762.jpg" alt="Customer Support" style="max-width: 300px; height: auto; margin: 20px 0;">
-
-                    <div class="faq-item">
-                        <h3>Q: Can I contribute to the library?</h3>
-                        <p>A: Yes! We welcome contributions. Please check our guidelines in the 'Docs' section.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>Q: What formats are supported?</h3>
-                        <p>A: We support PDF, EPUB, and MOBI formats for all our books.</p>
+                    <div class="faq-answer">
+                        <p>3lue Library is a digital platform that provides access to a wide range of educational resources, including books, documentation, and learning materials.</p>
                     </div>
                 </div>
-            </fieldset>
+
+                <div class="faq-item" data-category="account">
+                    <div class="faq-question">
+                        <h3>How do I create an account?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To create an account, click on the "Sign Up" button on the homepage and follow the registration process. You'll need to provide your email address and create a password.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question">
+                        <h3>What file formats are supported?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We support various file formats including PDF, EPUB, MOBI, and DOCX for documents, as well as common image and video formats for multimedia content.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>Is the content free to access?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, all content on 3lue Library is free to access. However, some premium features may require a subscription.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="card">
+            <div class="contact-section">
+                <h3 class="section-title">Still Have Questions?</h3>
+                <p>If you can't find the answer you're looking for, feel free to contact our support team.</p>
+                <button class="contact-button">Contact Support</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
     </div>
-    
-    <footer>
-        <h2>All Rights Are Reserved</h2>
-    </footer>
 </body>
 </html>

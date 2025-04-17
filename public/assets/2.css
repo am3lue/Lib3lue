@@ -26,7 +26,7 @@ label {
     display: block;
 }
 
-button {
+button, .doc-iem{
     margin: 2rem auto;
     padding: 1rem 2rem;
     width: auto;
