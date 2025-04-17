@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload - 3lue Library</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Upload Content</h1>
+            <h2>Share your files with the community</h2>
+        </header>
+
+        <nav class="card">
+            <div class="nav-links">
+                <a href="../../entry-pages/index.html" class="nav-link">Home</a>
+                <a href="books.html" class="nav-link">Books</a>
+                <a href="docs.html" class="nav-link">Documentation</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </div>
+        </nav>
+
+        <div class="upload-container">
+            <div class="upload-section">
+                <h3>Upload Books</h3>
+                <div class="upload-box" id="bookUpload">
+                    <div class="upload-icon">📚</div>
+                    <p>Drag and drop books here or click to browse</p>
+                    <input type="file" id="bookFile" accept=".pdf,.epub,.mobi,.txt,.doc,.docx,.djvu,.azw,.azw3,.fb2,.rtf" multiple>
+                    <div class="upload-progress" id="bookProgress"></div>
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h3>Upload Music</h3>
+                <div class="upload-box" id="musicUpload">
+                    <div class="upload-icon">🎵</div>
+                    <p>Drag and drop music files here or click to browse</p>
+                    <input type="file" id="musicFile" accept=".mp3,.wav,.ogg,.m4a,.flac" multiple>
+                    <div class="upload-progress" id="musicProgress"></div>
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h3>Upload Documentation</h3>
+                <div class="upload-box" id="docUpload">
+                    <div class="upload-icon">📄</div>
+                    <p>Drag and drop documents here or click to browse</p>
+                    <input type="file" id="docFile" accept=".pdf,.doc,.docx,.txt,.rtf" multiple>
+                    <div class="upload-progress" id="docProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uploaded-files">
+            <h3>Recently Uploaded Files</h3>
+            <div class="files-grid" id="uploadedFiles">
+                <!-- Uploaded files will be displayed here -->
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Handle file uploads
+        function setupUploadBox(uploadBox, fileInput, progressBar, type) {
+            uploadBox.addEventListener('click', () => fileInput.click());
+            
+            uploadBox.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadBox.classList.add('drag-over');
+            });
+
+            uploadBox.addEventListener('dragleave', () => {
+                uploadBox.classList.remove('drag-over');
+            });
+
+            uploadBox.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadBox.classList.remove('drag-over');
+                handleFiles(e.dataTransfer.files, type);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files, type);
+            });
+        }
+
+        // Handle file uploads
+        async function handleFiles(files, type) {
+            const formData = new FormData();
+            for (let file of files) {
+                formData.append('files', file);
+            }
+
+            try {
+                const response = await fetch(`/api/upload/${type}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showUploadSuccess(result.files);
+                    updateUploadedFiles();
+                } else {
+                    throw new Error('Upload failed');
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('Upload failed. Please try again.');
+            }
+        }
+
+        // Show upload success
+        function showUploadSuccess(files) {
+            const uploadedFiles = document.getElementById('uploadedFiles');
+            files.forEach(file => {
+                const fileCard = document.createElement('div');
+                fileCard.className = 'file-card';
+                fileCard.innerHTML = `
+                    <div class="file-icon">${getFileIcon(file)}</div>
+                    <h4>${file}</h4>
+                    <p>Uploaded successfully</p>
+                `;
+                uploadedFiles.prepend(fileCard);
+            });
+        }
+
+        // Get file icon based on extension
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': '📄',
+                'epub': '📖',
+                'mobi': '📚',
+                'txt': '📝',
+                'doc': '📑',
+                'docx': '📑',
+                'djvu': '📘',
+                'azw': '📚',
+                'azw3': '📚',
+                'fb2': '📖',
+                'rtf': '📝',
+                'mp3': '🎵',
+                'wav': '🎵',
+                'ogg': '🎵',
+                'm4a': '🎵',
+                'flac': '🎵'
+            };
+            return icons[ext] || '📄';
+        }
+
+        // Initialize upload boxes
+        document.addEventListener('DOMContentLoaded', () => {
+            setupUploadBox(
+                document.getElementById('bookUpload'),
+                document.getElementById('bookFile'),
+                document.getElementById('bookProgress'),
+                'books'
+            );
+
+            setupUploadBox(
+                document.getElementById('musicUpload'),
+                document.getElementById('musicFile'),
+                document.getElementById('musicProgress'),
+                'music'
+            );
+
+            setupUploadBox(
+                document.getElementById('docUpload'),
+                document.getElementById('docFile'),
+                document.getElementById('docProgress'),
+                'docs'
+            );
+        });
+    </script>
+</body>
+</html> 
