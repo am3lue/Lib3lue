@@ -313,6 +313,7 @@ body {
     margin-top: 1rem;
 }
 
+<<<<<<< HEAD
 .button-group {
     display: flex;
     gap: 0.5rem;
@@ -332,6 +333,8 @@ body {
     background: var(--dark-blue);
 }
 
+=======
+>>>>>>> 7c62a978f9e65882bd5e22c5108e8369da17b6d8
 .content-button:hover {
     background: var(--gradient-hover);
     transform: translateY(-2px);
