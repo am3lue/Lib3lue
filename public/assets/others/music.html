@@ -3,67 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music on 3lue</title>
-    <link rel="stylesheet" href="../main.css">
-    <link rel="stylesheet" href="../2.css">
-    <link rel="shortcut icon" href="../img/icon.jpeg" type="image/x-icon">
-
+    <title>Music - 3lue Library</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="nav">
-        <center>
-        <div class="nav-bar">
-            <h1>
-                <a href="../../index.html">Home</a>
-                <a href="docs.html">Docs</a>
-                <a href="books.html">Books</a>
-                <a href="faq.html">F.A.Q</a>
-            </h1>
-        </div>
-    </center>
-    </div>
+    <div class="container">
+        <nav class="nav-links">
+            <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="/books" class="nav-link"><i class="fas fa-book"></i> Books</a>
+            <a href="/docs" class="nav-link"><i class="fas fa-file-alt"></i> Docs</a>
+            <a href="/music" class="nav-link active"><i class="fas fa-music"></i> Music</a>
+            <a href="/faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+        </nav>
 
-    <div class="head1">
-        <div class="main-head1">
-            <h1>Welcome In Music section</h1>
-            <h2>Folk !</h2>
-        </div>
-    </div>
+        <header class="header">
+            <h1>Music Collection</h1>
+            <h2>Explore Our Audio Library</h2>
+        </header>
 
-
-    <div class="srch">
-        <div class="srch-bar">
-            <center>
-            <form action="" method="get">
-                <label for="Search">Search: </label>
-                <input type="text" name="Search" id="srch" placeholder="Search">
-                <button type="submit">Search</button>
-            </form>
-        </center>
-        </div>
-        <center>
-            <div class="container">
-                <fieldset>
-                    <a href="../../Songs/y2mate.com - AMEN AMEN Sinmidele and Ore Macaulay_1080p.mp4" download="AMEN AMEN Sinmidele and Ore Macaulay_1080p.mp4">AMEN AMEN Sinmidele and Ore Macaulay_1080p.mp4</a>
-                    <br><br><br>
-                    <a href="../../Songs/y2mate.com - Glorious  David Archuleta  One Voice Childrens Choir  Kids Cover Official Music Video_1080p.mp4" download="Glorious  David Archuleta  One Voice Childrens Choir">Glorious  David Archuleta  One Voice Childrens Choir</a>
-                    <br><br><br>
-                    <a href="../../Songs/y2mate.com - Glorious  drill remix Song by One Voice Childrens Choir prod by odyssybeatz_1080p.mp4" download="Glorious  drill remix Song by One Voice Childrens Choir">Glorious  drill remix Song by One Voice Childrens Choir</a>
-                    <br><br><br>
-                    <a href="../../Songs/y2mate.com - In The Room  Maverick City Music Naomi Raine Feat Tasha Cobbs Leonard Lyrics_720pFH.mp4" download="In The Room  Maverick City Music Naomi Raine Feat Tasha Cobbs">In The Room  Maverick City Music Naomi Raine Feat Tasha Cobbs</a>
-                    <br><br><br>
-                    <a href="../../Songs/y2mate.com - Tunategemeana LyricsGodfrey Steven_360p.mp4" download="Tunategemeana LyricsGodfrey Steven">Tunategemeana LyricsGodfrey Steven</a>
-
-                </fieldset>
+        <div class="card">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="musicSearch" placeholder="Search music..." class="search-input">
+                    <div id="searchSuggestions" class="search-suggestions"></div>
+                </div>
+                <button class="search-button" onclick="searchMusic()">Search</button>
             </div>
-        </center>
+        </div>
+
+        <div class="card">
+            <div class="filter-container">
+                <select id="formatFilter" class="filter-select">
+                    <option value="all">All Formats</option>
+                    <option value="mp3">MP3</option>
+                    <option value="wav">WAV</option>
+                    <option value="ogg">OGG</option>
+                    <option value="m4a">M4A</option>
+                    <option value="flac">FLAC</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="content-grid" id="musicGrid">
+                <!-- Music items will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Featured Collections</h3>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <h4>Latest Releases</h4>
+                    <p>Newest additions to our library</p>
+                </div>
+                <div class="collection-card">
+                    <h4>Popular Tracks</h4>
+                    <p>Most played songs</p>
+                </div>
+                <div class="collection-card">
+                    <h4>Curated Playlists</h4>
+                    <p>Handpicked selections</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
     </div>
 
-    
+    <script>
+        // Function to fetch music from the server
+        async function fetchMusic() {
+            try {
+                const response = await fetch('/api/music/search');
+                const music = await response.json();
+                return music;
+            } catch (error) {
+                console.error('Error fetching music:', error);
+                return [];
+            }
+        }
+
+        // Function to get file extension
+        function getFileExtension(filename) {
+            return filename.split('.').pop().toLowerCase();
+        }
+
+        // Function to get file icon based on extension
+        function getFileIcon(extension) {
+            const icons = {
+                'mp3': '🎵',
+                'wav': '🎵',
+                'ogg': '🎵',
+                'm4a': '🎵',
+                'flac': '🎵'
+            };
+            return icons[extension] || '🎵';
+        }
+
+        // Function to show search suggestions
+        async function showSuggestions(searchTerm) {
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            if (!searchTerm) {
+                suggestionsDiv.innerHTML = '';
+                suggestionsDiv.classList.remove('show');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/music/search?q=${encodeURIComponent(searchTerm)}`);
+                const music = await response.json();
+                
+                if (music.length > 0) {
+                    suggestionsDiv.innerHTML = music
+                        .map(track => `
+                            <div class="suggestion-item" onclick="selectSuggestion('${track}')">
+                                <span class="suggestion-icon">${getFileIcon(getFileExtension(track))}</span>
+                                <span class="suggestion-text">${track}</span>
+                            </div>
+                        `).join('');
+                    suggestionsDiv.classList.add('show');
+                } else {
+                    suggestionsDiv.innerHTML = '<div class="suggestion-item">No matches found</div>';
+                    suggestionsDiv.classList.add('show');
+                }
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+                suggestionsDiv.classList.remove('show');
+            }
+        }
+
+        // Function to select a suggestion
+        function selectSuggestion(track) {
+            document.getElementById('musicSearch').value = track;
+            document.getElementById('searchSuggestions').classList.remove('show');
+            searchMusic();
+        }
+
+        // Function to display music
+        function displayMusic(music) {
+            const musicGrid = document.getElementById('musicGrid');
+            musicGrid.innerHTML = '';
+
+            music.forEach(track => {
+                const musicCard = document.createElement('div');
+                musicCard.className = 'book-card';
+                
+                const fileExt = getFileExtension(track);
+                const icon = getFileIcon(fileExt);
+                const format = fileExt.toUpperCase();
+                
+                musicCard.innerHTML = `
+                    <div class="book-icon">${icon}</div>
+                    <h3>${track}</h3>
+                    <p class="book-description">${format} format</p>
+                    <div class="book-meta">
+                        <span class="book-format">${format}</span>
+                    </div>
+                    <button class="content-button" onclick="accessMusic('${track}')">
+                        Play Now
+                    </button>
+                `;
+                musicGrid.appendChild(musicCard);
+            });
+        }
+
+        // Function to search music
+        async function searchMusic() {
+            const searchTerm = document.getElementById('musicSearch').value;
+            const format = document.getElementById('formatFilter').value;
+
+            try {
+                const response = await fetch(`/api/music/search?q=${encodeURIComponent(searchTerm)}`);
+                const music = await response.json();
+                
+                // Apply client-side filtering for format
+                const filteredMusic = music.filter(track => {
+                    const fileExt = getFileExtension(track);
+                    return format === 'all' || fileExt === format.toLowerCase();
+                });
+                
+                displayMusic(filteredMusic);
+            } catch (error) {
+                console.error('Error searching music:', error);
+            }
+        }
+
+        // Function to access a music file
+        function accessMusic(filename) {
+            window.open(`/Music/${encodeURIComponent(filename)}`, '_blank');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const music = await fetchMusic();
+            displayMusic(music);
+            
+            // Add event listeners
+            document.getElementById('formatFilter').addEventListener('change', searchMusic);
+            
+            // Add input event listener for search suggestions
+            const searchInput = document.getElementById('musicSearch');
+            searchInput.addEventListener('input', (e) => {
+                showSuggestions(e.target.value);
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-wrapper')) {
+                    document.getElementById('searchSuggestions').classList.remove('show');
+                }
+            });
+        });
+    </script>
 </body>
-
-<footer>
-    <h2>All Rights Are Reserverd</h2>
-</footer>
-
 </html>

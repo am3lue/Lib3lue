@@ -3,42 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join the Community of 3lue</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="../assets/img/icon.jpeg" type="image/x-icon">
+    <title>Sign Up - 3lue Library</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="head1">
-        <h1>Join the 3lue Community!</h1>
-    </div>
+    <div class="container">
+        <header class="header">
+            <h1>Join 3lue Library</h1>
+            <h2>Start Your Digital Learning Journey</h2>
+        </header>
 
-    <div class="body1">
-        <div class="login">
-            <form action="/routes.jl" method="post">
-                <fieldset>
-                    <legend><h1>Sign Up</h1></legend>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                    <br><br>
-
+        <div class="card">
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                    <br><br>
-
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
-                    <br><br>
-                    
-                    <button >Sign Up</button>
-                </fieldset>
+                    <input type="password" id="password" name="password" required placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                </div>
+                <button type="submit">Create Account</button>
+                <button type="button">
+                    <a href="login.html">Already have an account? Login</a>
+                </button>
+                <button type="button">
+                    <a href="../index.html">Back to Home</a>
+                </button>
             </form>
         </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
     </div>
-
-    <footer>
-        <h2>All Rights Are Reserved</h2>
-    </footer>
-
     <script src="main.js"></script>
 </body>
 </html>

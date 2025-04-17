@@ -3,99 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docs on 3lue</title>
-    <link rel="stylesheet" href="../main.css">
-    <link rel="stylesheet" href="../2.css">
-    <link rel="shortcut icon" href="../img/icon.jpeg" type="image/x-icon">
-
+    <title>Documentation - 3lue Library</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="nav">
-        <div class="nav-bar">
-            <h1>
-                <a href="/">Home</a>
-                <a href="docs.html">Docs</a>
-                <a href="books.html">Books</a>
-                <a href="faq.html">F.A.Q</a>
-            </h1>
-        </div>
-    </div>
-    <br>
-    <div class="head1">
-        <div class="main-head1">
-            <h1>Welcome In Documents section</h1>
-            <h2>Folk !</h2>
-        </div>
-    </div>
-    <br>
-    <div class="srch" id="me">
-        <div class="srch-bar">
-            <form id="searchForm">
-                <input type="text" id="searchQuery" placeholder="Search for a file" required>
-              </form>
-        </div>
-       
-            <div class="contvainer" > 
-                <fieldset>
-                    <ul id="searchResults"></ul>
-                    
-                </fieldset>
+    <div class="container">
+        <nav class="nav-links">
+            <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="/books" class="nav-link"><i class="fas fa-book"></i> Books</a>
+            <a href="/docs" class="nav-link active"><i class="fas fa-file-alt"></i> Docs</a>
+            <a href="/music" class="nav-link"><i class="fas fa-music"></i> Music</a>
+            <a href="/faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+        </nav>
+
+        <header class="header">
+            <h1>Documentation Center</h1>
+            <h2>Access Technical Resources and Guides</h2>
+        </header>
+
+        <div class="card">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="docSearch" placeholder="Search documentation..." class="search-input">
+                    <div id="searchSuggestions" class="search-suggestions"></div>
+                </div>
+                <button class="search-button" onclick="searchDocs()">Search</button>
             </div>
+        </div>
+
+        <div class="card">
+            <div class="filter-container">
+                <select id="formatFilter" class="filter-select">
+                    <option value="all">All Formats</option>
+                    <option value="pdf">PDF</option>
+                    <option value="epub">EPUB</option>
+                    <option value="mobi">MOBI</option>
+                    <option value="txt">TXT</option>
+                    <option value="doc">DOC</option>
+                    <option value="docx">DOCX</option>
+                    <option value="djvu">DJVU</option>
+                    <option value="azw">AZW</option>
+                    <option value="azw3">AZW3</option>
+                    <option value="fb2">FB2</option>
+                    <option value="rtf">RTF</option>
+                    <option value="zip">ZIP</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="content-grid" id="docsGrid">
+                <!-- Documentation cards will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Featured Collections</h3>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <h4>Technical Guides</h4>
+                    <p>Comprehensive technical documentation</p>
+                </div>
+                <div class="collection-card">
+                    <h4>User Manuals</h4>
+                    <p>Step-by-step user guides</p>
+                </div>
+                <div class="collection-card">
+                    <h4>API Documentation</h4>
+                    <p>Detailed API references</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 3lue Library - All Rights Reserved</p>
+        </footer>
     </div>
-    
+
     <script>
-        const searchForm = document.getElementById('searchForm');
-        const searchInput = document.getElementById('searchQuery');
-        const searchResults = document.getElementById('searchResults');
-        
-        searchForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const query = searchInput.value;
-            await searchDocs(query);
-        });
-        
-        searchInput.addEventListener('input', async () => {
-            const query = searchInput.value;
-            await searchDocs(query);
-        });
-        
-        async function searchDocs(query) {
+        // Function to fetch docs from the server
+        async function fetchDocs() {
             try {
-                const response = await fetch(`/api/docs/search?q=${encodeURIComponent(query)}`);
-                const files = await response.json();
-                displayResults(files);
+                const response = await fetch('/api/docs/search');
+                const docs = await response.json();
+                return docs;
             } catch (error) {
-                console.error('Error searching docs:', error);
-                searchResults.innerHTML = '<div class="doc-item">Error searching documents</div>';
+                console.error('Error fetching docs:', error);
+                return [];
             }
         }
-        
-        function displayResults(results) {
-            searchResults.innerHTML = '';
-            
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="doc-item">No documents found</div>';
+
+        // Function to get file extension
+        function getFileExtension(filename) {
+            return filename.split('.').pop().toLowerCase();
+        }
+
+        // Function to get file icon based on extension
+        function getFileIcon(extension) {
+            const icons = {
+                'pdf': '📄',
+                'epub': '📖',
+                'mobi': '📚',
+                'txt': '📝',
+                'doc': '📑',
+                'docx': '📑',
+                'djvu': '📘',
+                'azw': '📚',
+                'azw3': '📚',
+                'fb2': '📖',
+                'rtf': '📝',
+                'zip': '📦'
+            };
+            return icons[extension] || '📄';
+        }
+
+        // Function to show search suggestions
+        async function showSuggestions(searchTerm) {
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            if (!searchTerm) {
+                suggestionsDiv.innerHTML = '';
+                suggestionsDiv.classList.remove('show');
                 return;
             }
-        
-            results.forEach(filename => {
-                const docDiv = document.createElement('div');
-                docDiv.className = 'doc-item';
+
+            try {
+                const response = await fetch(`/api/docs/search?q=${encodeURIComponent(searchTerm)}`);
+                const docs = await response.json();
                 
-                const button = document.createElement('button');
-                button.className = 'doc-title';
-                button.textContent = filename;
-                button.onclick = () => window.open(`/Docs/${encodeURIComponent(filename)}`, '_blank');
+                if (docs.length > 0) {
+                    suggestionsDiv.innerHTML = docs
+                        .map(doc => `
+                            <div class="suggestion-item" onclick="selectSuggestion('${doc}')">
+                                <span class="suggestion-icon">${getFileIcon(getFileExtension(doc))}</span>
+                                <span class="suggestion-text">${doc}</span>
+                            </div>
+                        `).join('');
+                    suggestionsDiv.classList.add('show');
+                } else {
+                    suggestionsDiv.innerHTML = '<div class="suggestion-item">No matches found</div>';
+                    suggestionsDiv.classList.add('show');
+                }
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+                suggestionsDiv.classList.remove('show');
+            }
+        }
+
+        // Function to select a suggestion
+        function selectSuggestion(doc) {
+            document.getElementById('docSearch').value = doc;
+            document.getElementById('searchSuggestions').classList.remove('show');
+            searchDocs();
+        }
+
+        // Function to display docs
+        function displayDocs(docs) {
+            const docsGrid = document.getElementById('docsGrid');
+            docsGrid.innerHTML = '';
+
+            docs.forEach(doc => {
+                const docCard = document.createElement('div');
+                docCard.className = 'book-card';
                 
-                docDiv.appendChild(button);
-                searchResults.appendChild(docDiv);
+                const fileExt = getFileExtension(doc);
+                const icon = getFileIcon(fileExt);
+                const format = fileExt.toUpperCase();
+                
+                docCard.innerHTML = `
+                    <div class="book-icon">${icon}</div>
+                    <h3>${doc}</h3>
+                    <p class="book-description">${format} format</p>
+                    <div class="book-meta">
+                        <span class="book-format">${format}</span>
+                    </div>
+                    <button class="content-button" onclick="accessDoc('${doc}')">
+                        View Now
+                    </button>
+                `;
+                docsGrid.appendChild(docCard);
             });
         }
+
+        // Function to search docs
+        async function searchDocs() {
+            const searchTerm = document.getElementById('docSearch').value;
+            const format = document.getElementById('formatFilter').value;
+
+            try {
+                const response = await fetch(`/api/docs/search?q=${encodeURIComponent(searchTerm)}`);
+                const docs = await response.json();
+                
+                // Apply client-side filtering for format
+                const filteredDocs = docs.filter(doc => {
+                    const fileExt = getFileExtension(doc);
+                    return format === 'all' || fileExt === format.toLowerCase();
+                });
+                
+                displayDocs(filteredDocs);
+            } catch (error) {
+                console.error('Error searching docs:', error);
+            }
+        }
+
+        // Function to access a doc
+        function accessDoc(filename) {
+            window.open(`/Docs/${encodeURIComponent(filename)}`, '_blank');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const docs = await fetchDocs();
+            displayDocs(docs);
+            
+            // Add event listeners
+            document.getElementById('formatFilter').addEventListener('change', searchDocs);
+            
+            // Add input event listener for search suggestions
+            const searchInput = document.getElementById('docSearch');
+            searchInput.addEventListener('input', (e) => {
+                showSuggestions(e.target.value);
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-wrapper')) {
+                    document.getElementById('searchSuggestions').classList.remove('show');
+                }
+            });
+        });
     </script>
 </body>
-
-<footer>
-    <h2>All Rights Are Reserverd</h2>
-</footer>
-
 </html>
