@@ -74,39 +74,52 @@ body {
 .nav-card {
     width: 100%;
     max-width: 900px;
+    height: 300px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
 }
 
 .nav-link {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    border-radius: 15px;
     text-decoration: none;
     color: white;
     transition: all 0.3s ease;
+    height: 80px;
+    min-width: 200px;
+    flex: 1 1 200px;
 }
 
 .nav-link:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .nav-icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 /* Content Grid */
