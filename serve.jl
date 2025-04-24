@@ -3,7 +3,7 @@ using Pkg
 using Sockets
 
 # Clear screen
-run(`clear`)
+println("\033c")
 
 # Activate the environment
 Pkg.activate(".")
