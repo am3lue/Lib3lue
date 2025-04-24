@@ -2,6 +2,8 @@ using Genie
 using Pkg
 using Sockets
 
+ip_address = string(Sockets.getipaddr())
+
 # Clear screen
 println("\033c")
 
@@ -16,7 +18,7 @@ try
     # Configure server settings
     Genie.config.run_as_server = true
     Genie.config.server_port = 8000
-    Genie.config.server_host = "0.0.0.0"
+    Genie.config.server_host = ip_address
     Genie.config.cors_headers["Access-Control-Allow-Origin"] = "*"
     Genie.config.cors_headers["Access-Control-Allow-Headers"] = "Content-Type"
     Genie.config.cors_headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
