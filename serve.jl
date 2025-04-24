@@ -31,7 +31,9 @@ try
             println("  - http://$ip:$(Genie.config.server_port)")
         end
     end
-    
+
+    # Clear screen
+    println("\033c")
     println("""
     
     Starting 3lue Library server...
