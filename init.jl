@@ -1,4 +1,14 @@
 using Pkg
+# Create required public directories if they don't exist
+required_dirs = ["public/Docs", "public/Music", "public/Movies", "public/Books"]
+
+for dir in required_dirs
+    if !isdir(dir)
+        println("Creating $dir directory...")
+        mkpath(dir)  # Using mkpath to create nested directories
+    end
+end
+
 
 # Create and activate the environment
 Pkg.activate(".")
