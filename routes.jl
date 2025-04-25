@@ -158,11 +158,11 @@ route("/api/music/search", method=GET) do
 end
 
 # File upload routes
-route("/api/upload/books", method=POST) do
+route("/api/update/books", method=POST) do
   try
     files = params(:files)
     if files === nothing || isempty(files)
-      return json(Dict("error" => "No files were uploaded"), :bad_request)
+      return json(Dict("error" => "No files provided"), :bad_request)
     end
 
     upload_dir = joinpath("public", "Books")
@@ -170,50 +170,42 @@ route("/api/upload/books", method=POST) do
       mkdir(upload_dir)
     end
 
-    uploaded_files = String[]
+    updated_files = String[]
     errors = String[]
 
     for file in files
       try
-        # Validate file extension
         filename = file.filename
         ext = lowercase(splitext(filename)[2])
         allowed_extensions = [".pdf", ".epub", ".mobi", ".txt", ".doc", ".docx", ".djvu", ".azw", ".azw3", ".fb2", ".rtf"]
-        
+
         if !(ext in allowed_extensions)
           push!(errors, "Invalid file type: $filename")
           continue
         end
 
-        # Validate file size (max 100MB)
+        # Validate size
         if length(file.data) > 100 * 1024 * 1024
           push!(errors, "File too large: $filename (max 100MB)")
           continue
         end
 
-        # Sanitize filename
+        # Sanitize and overwrite file directly
         safe_filename = replace(filename, r"[^a-zA-Z0-9._-]" => "_")
         file_path = joinpath(upload_dir, safe_filename)
 
-        # Check if file already exists
-        if isfile(file_path)
-          safe_filename = "$(splitext(safe_filename)[1])_$(randstring(6))$(splitext(safe_filename)[2])"
-          file_path = joinpath(upload_dir, safe_filename)
-        end
-
-        # Write file
-        write(file_path, file.data)
-        push!(uploaded_files, safe_filename)
+        write(file_path, file.data)  # Overwrite
+        push!(updated_files, safe_filename)
       catch e
-        push!(errors, "Error processing $filename: $(string(e))")
+        push!(errors, "Error updating $filename: $(string(e))")
       end
     end
 
-    if isempty(uploaded_files)
-      return json(Dict("error" => "No files were successfully uploaded", "details" => errors), :bad_request)
+    if isempty(updated_files)
+      return json(Dict("error" => "No files updated", "details" => errors), :bad_request)
     end
 
-    response = Dict("files" => uploaded_files)
+    response = Dict("updated" => updated_files)
     if !isempty(errors)
       response["warnings"] = errors
     end
@@ -223,6 +215,7 @@ route("/api/upload/books", method=POST) do
     return json(Dict("error" => "Server error: $(string(e))"), :internal_server_error)
   end
 end
+
 
 route("/api/upload/music", method=POST) do
   try
