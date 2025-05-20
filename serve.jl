@@ -33,7 +33,7 @@ try
     end
 
     # Clear screen
-    println("\033c")
+    #println("\033c")
     println("""
     
     Starting 3lue Library server...
