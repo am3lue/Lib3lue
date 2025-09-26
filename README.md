@@ -73,10 +73,32 @@ cd lib3lue
 ```
 
 2. Install dependencies:
+
+You have two options for installation:
+
+#### Option A: Using the Setup Script (Recommended)
+Simply run the setup batch file:
 ```bash
-julia init.jl
+# On Windows
+setup.bat
+
+# On Linux/MacOS
+chmod +x setup.sh  # First time only
+./setup.sh
 ```
-Wait for the message: "Environment setup complete!"
+
+#### Option B: Manual Installation
+Run the Julia setup script directly:
+```bash
+julia setup.jl
+```
+
+The setup script will:
+- Activate the project environment
+- Install all required packages
+- Configure the necessary dependencies
+
+Wait for the "Setup completed!" message to appear.
 
 ## Running the Application
 
