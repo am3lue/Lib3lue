@@ -2,7 +2,7 @@
 
 julia_version = "1.11.7"
 manifest_format = "2.0"
-project_hash = "a32b7f484d896501e23305914bc1f45f53e8f5dc"
+project_hash = "39e60c15dfb25aed2be4ef434df7e90eec7cc689"
 
 [[deps.AbstractTrees]]
 git-tree-sha1 = "2d9c9a55f9c93e8887ad391fbae72f8ef55e1177"
@@ -160,6 +160,16 @@ git-tree-sha1 = "380053d61bb9064d6aa4a9777413b40429c79901"
 uuid = "8f5d6c58-4d21-5cfd-889c-e3ad7ee6a615"
 version = "1.2.0"
 
+[[deps.FileIO]]
+deps = ["Pkg", "Requires", "UUIDs"]
+git-tree-sha1 = "b66970a70db13f45b7e57fbda1736e1cf72174ea"
+uuid = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+version = "1.17.0"
+weakdeps = ["HTTP"]
+
+    [deps.FileIO.extensions]
+    HTTPExt = "HTTP"
+
 [[deps.FilePaths]]
 deps = ["FilePathsBase", "MacroTools", "Reexport"]
 git-tree-sha1 = "a1b2fbfe98503f15b665ed45b3d149e5d8895e4c"
@@ -276,6 +286,12 @@ deps = ["Artifacts", "Preferences"]
 git-tree-sha1 = "a007feb38b422fbdab534406aeca1b86823cb4d6"
 uuid = "692b3bcd-3c85-4b1f-b108-f13ce0eb3210"
 version = "1.7.0"
+
+[[deps.JSON]]
+deps = ["Dates", "Mmap", "Parsers", "Unicode"]
+git-tree-sha1 = "31e996f0a15c7b280ba9f76636b3ff9e2ae58c9a"
+uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+version = "0.21.4"
 
 [[deps.JSON3]]
 deps = ["Dates", "Mmap", "Parsers", "PrecompileTools", "StructTypes", "UUIDs"]
