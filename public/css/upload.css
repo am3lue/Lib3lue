@@ -27,6 +27,14 @@
     --transition-slow: 0.5s ease;
 }
 
+/* Breakpoints */
+:root {
+    --mobile-sm: 320px;
+    --mobile: 480px;
+    --tablet: 768px;
+    --desktop: 1024px;
+}
+
 * {
     margin: 0;
     padding: 0;

@@ -1,25 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Configuration for upload sections
+    // Configurations for different upload categories
     const uploadConfigs = [
         {
             uploadBoxId: 'bookUpload',
             fileInputId: 'bookFile',
             progressId: 'bookProgress',
-            endpoint: '/api/upload/books',
+            category: 'books',
             maxSize: 100 * 1024 * 1024 // 100MB
         },
         {
             uploadBoxId: 'musicUpload',
             fileInputId: 'musicFile',
             progressId: 'musicProgress',
-            endpoint: '/api/upload/music',
+            category: 'music',
             maxSize: 50 * 1024 * 1024 // 50MB
         },
         {
             uploadBoxId: 'docUpload',
             fileInputId: 'docFile',
             progressId: 'docProgress',
-            endpoint: '/api/upload/docs',
+            category: 'docs',
             maxSize: 50 * 1024 * 1024 // 50MB
         }
     ];
@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressBar = progressContainer.querySelector('.progress-bar');
         const progressText = progressContainer.querySelector('.progress-text');
 
-        // Click to trigger file input
+        // Click → open file selector
         uploadBox.addEventListener('click', () => fileInput.click());
 
-        // Drag and drop
+        // Drag-and-drop handling
         uploadBox.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadBox.classList.add('dragover');
@@ -48,74 +48,55 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             uploadBox.classList.remove('dragover');
             fileInput.files = e.dataTransfer.files;
-            uploadFiles(fileInput.files, config.endpoint, progressBar, progressText, config.maxSize);
+            uploadFiles(fileInput.files, config.category, progressBar, progressText, config.maxSize);
         });
 
         // File input change
         fileInput.addEventListener('change', () => {
-            uploadFiles(fileInput.files, config.endpoint, progressBar, progressText, config.maxSize);
+            uploadFiles(fileInput.files, config.category, progressBar, progressText, config.maxSize);
         });
     });
 
-    async function uploadFiles(files, endpoint, progressBar, progressText, maxSize) {
-        // Validate files
+    async function uploadFiles(files, category, progressBar, progressText, maxSize) {
         const validFiles = Array.from(files).filter(file => file.size <= maxSize);
         if (validFiles.length === 0) {
-            progressText.textContent = 'Error: No valid files selected or files exceed size limit';
+            progressText.textContent = '❌ No valid files selected or files exceed size limit';
             return;
         }
-    
+
         const formData = new FormData();
         validFiles.forEach(file => {
             formData.append('files', file);
-            console.log(`Appending file: ${file.name}, size: ${file.size}`); // Debug
         });
-    
-        // Log FormData entries (for debugging)
-        for (let [key, value] of formData.entries()) {
-            console.log(`FormData: ${key}=${value.name || value}`);
-        }
-    
+
         progressBar.style.width = '0%';
         progressText.textContent = 'Uploading...';
-    
+
         try {
-            const response = await fetch(endpoint, {
+            const response = await fetch(`/api/upload/${category}`, {
                 method: 'POST',
                 body: formData
             });
-    
-            // Log raw response
-            const responseText = await response.text();
-            console.log('Raw server response:', responseText);
-    
-            // Parse JSON
-            let result;
-            try {
-                result = JSON.parse(responseText);
-            } catch (jsonError) {
-                throw new Error(`Failed to parse JSON: ${jsonError.message}\nResponse: ${responseText}`);
+
+            const result = await response.json();
+
+            if (!response.ok || result.error) {
+                throw new Error(result.error || 'Upload failed');
             }
-    
-            if (!response.ok) {
-                throw new Error(result.error || `Upload failed: ${response.statusText}`);
-            }
-    
+
             progressBar.style.width = '100%';
-            progressText.textContent = 'Upload complete';
-    
-            if (result.status === 'success') {
-                console.log('Uploaded files:', result.files);
+            progressText.textContent = '✅ Upload complete';
+
+            if (result.files?.length) {
                 updateUploadedFiles(result.files);
-                if (result.warnings?.length > 0) {
-                    alert(`Upload completed with warnings: ${result.warnings.join(', ')}`);
-                }
-            } else {
-                throw new Error(result.errors?.join(', ') || 'Upload failed');
+            }
+
+            if (result.warnings?.length) {
+                alert(`⚠️ Warnings: ${result.warnings.join(', ')}`);
             }
         } catch (error) {
             console.error('Upload error:', error);
-            progressText.textContent = `Error: ${error.message}`;
+            progressText.textContent = `❌ Error: ${error.message}`;
             alert(`Upload failed: ${error.message}`);
         }
     }
