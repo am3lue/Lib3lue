@@ -30,6 +30,15 @@ route("/faq") do
   serve_static_file(joinpath("assets", "others", "faq.html"))
 end
 
+route("/music") do
+  serve_static_file(joinpath("assets", "others", "music.html"))
+end
+
+route("/movies") do
+  serve_static_file(joinpath("assets", "others", "movies.html"))
+end
+
+# Login route
 route("/login") do
   # Show login form for GET requests
   if Genie.Router.params(:REQUEST_METHOD) == "GET"
