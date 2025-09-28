@@ -1,9 +1,7 @@
-# src/util.jl
 module Util
 
-"""
-Save an uploaded file safely to disk.
-"""
+export save_uploaded_file, validate_files
+
 function save_uploaded_file(upload, dest_path::String)
     open(dest_path, "w") do io
         write(io, upload.data)
@@ -11,9 +9,6 @@ function save_uploaded_file(upload, dest_path::String)
     return true
 end
 
-"""
-Validate uploaded files by size.
-"""
 function validate_files(files, max_size::Int)
     valid = []
     invalid = []
@@ -30,3 +25,4 @@ function validate_files(files, max_size::Int)
 end
 
 end # module
+using .Util: save_uploaded_file, validate_files

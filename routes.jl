@@ -1,9 +1,7 @@
-# This file is part of the Lib3lue project
-# (c) 2024 3lue Library Contributors
+using Genie.Router
+using Genie.Renderer.Json
+using Genie.Renderer.Html
 using PDFIO
-using Genie, Genie.Router, Genie.Renderer.Json, Genie.Requests, Genie.Renderer.Html
-using Genie.Requests: postpayload
-using Random, Base
 
 # Static page routes
 route("/") do
@@ -37,8 +35,8 @@ end
 route("/movies") do
   serve_static_file(joinpath("assets", "others", "movies.html"))
 end
+# Authentication routes
 
-# Login route
 route("/login") do
   # Show login form for GET requests
   if Genie.Router.params(:REQUEST_METHOD) == "GET"
